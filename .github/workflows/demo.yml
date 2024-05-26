@@ -16,31 +16,44 @@ jobs:
           name: sha256-windows-exe
           path: dist/sha256.exe
 
-  build-on-linux:
-    runs-on: ubuntu-latest
+  # build-on-linux:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: checkout code
+  #       uses: actions/checkout@v4
+  #     - name: install pyinstaller
+  #       run: pip install pyinstaller
+  #     - name: build binary
+  #       run: pyinstaller sha256.py -F
+  #     - name: uoload artifact as binary file
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: sha256-linux
+  #         path: dist/sha256
+  # build-on-mac:
+  #   runs-on: macos-12
+  #   steps:
+  #     - name: checkout code
+  #       uses: actions/checkout@v4
+  #     - name: install pyinstaller
+  #       run: pip3 install pyinstaller
+  #     - name: build binary
+  #       run: pyinstaller sha256.py -F
+  #     - name: uoload artifact as binary file
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: sha256-mac
+  #         path: dist/sha256
+
+  test-build-windows:
+    runs-on: windows-latest
+    needs: build-on-windows
     steps:
-      - name: checkout code
-        uses: actions/checkout@v4
-      - name: install pyinstaller
-        run: pip install pyinstaller
-      - name: build binary
-        run: pyinstaller sha256.py -F
-      - name: uoload artifact as binary file
-        uses: actions/upload-artifact@v4
+      - name: download exe file
+        uses: actions/download-artifact@v4
         with:
-          name: sha256-linux
-          path: dist/sha256
-  build-on-mac:
-    runs-on: macos-12
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v4
-      - name: install pyinstaller
-        run: pip3 install pyinstaller
-      - name: build binary
-        run: pyinstaller sha256.py -F
-      - name: uoload artifact as binary file
-        uses: actions/upload-artifact@v4
-        with:
-          name: sha256-mac
-          path: dist/sha256
+          name: sha256-windows-exe
+      - name: test exe file
+        run: |
+          ls
+          ./sha256.exe sha256.exe
