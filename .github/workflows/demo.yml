@@ -77,8 +77,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: sha256-mac
+          path: dist/sha256
       - name: test binary file
+        shell: bash
         run: |
           ls
-          chmod +x sha256
+          /bin/chmod +x sha256
           ./sha256 sha256
