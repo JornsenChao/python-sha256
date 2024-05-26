@@ -30,8 +30,8 @@ jobs:
         with:
           name: sha256-linux
           path: dist/sha256
-  build-on-max:
-    runs-on: macos-latest
+  build-on-mac:
+    runs-on: macos-12
     steps:
       - name: checkout code
         uses: actions/checkout@v4
