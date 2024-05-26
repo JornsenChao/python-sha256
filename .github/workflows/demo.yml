@@ -80,5 +80,5 @@ jobs:
       - name: test binary file
         run: |
           ls
-          chomd +x sha256
+          chmod +x sha256
           ./sha256 sha256
