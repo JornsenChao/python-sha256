@@ -15,3 +15,32 @@ jobs:
         with:
           name: sha256-windows-exe
           path: dist/sha256.exe
+
+  build-on-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: install pyinstaller
+        run: pip install pyinstaller
+      - name: build binary
+        run: pyinstaller sha256.py -F
+      - name: uoload artifact as binary file
+        uses: actions/upload-artifact@v4
+        with:
+          name: sha256-linux
+          path: dist/sha256
+  build-on-max:
+    runs-on: macos-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: install pyinstaller
+        run: pip3 install pyinstaller
+      - name: build binary
+        run: pyinstaller sha256.py -F
+      - name: uoload artifact as binary file
+        uses: actions/upload-artifact@v4
+        with:
+          name: sha256-mac
+          path: dist/sha256
